@@ -1,0 +1,28 @@
+{
+  "name": "simple-nodejs",
+  "version": "1.0.0",
+  "description": "Simple NodeJS webapp without using Express",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robert-saramet/simple-nodejs.git"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "Robert Saramet",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/robert-saramet/simple-nodejs/issues"
+  },
+  "homepage": "https://github.com/robert-saramet/simple-nodejs#readme",
+  "dependencies": {
+    "slugify": "^1.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}

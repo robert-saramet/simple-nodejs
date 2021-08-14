@@ -1,7 +1,13 @@
-// Dependencies
+// Node dependencies
 const fs = require('fs');
 const http = require('http');
 const url = require('url');
+
+// NPM dependencies
+const slugify = require('slugify');
+
+// Local dependencies
+const replaceTemplate = require('./modules/replaceTemplate');
 
 // Server variables
 const port = process.env.PORT || 3001;
@@ -16,20 +22,11 @@ const tempOverview = fs.readFileSync(`${__dirname}/templates/template-overview.h
 const tempCard = fs.readFileSync(`${__dirname}/templates/template-card.html`, 'utf8');
 const tempProduct = fs.readFileSync(`${__dirname}/templates/template-product.html`, 'utf8');
 
-// Replace placeholders with actual data
-const replaceTemplate = (template, product) => {
-    let output = template.replace(/{%PRODUCTNAME%}/g, product.productName);
-    output = output.replace(/{%IMAGE%}/g, product.image);
-    output = output.replace(/{%PRICE%}/g, product.price);
-    output = output.replace(/{%DESCRIPTION%}/g, product.description);
-    output = output.replace(/{%QUANTITY%}/g, product.quantity);
-    output = output.replace(/{%FROM%}/g, product.from);
-    output = output.replace(/{%NUTRIENTS%}/g, product.nutrients);
-    output = output.replace(/{%ID%}/g, product.id);
-
-    if (!product.organic) output = output.replace(/{%NOT_ORGANIC%}/g, 'not-organic');
-    return output;
-}
+// Convert product names to paths
+const slugs = productsObj.map(product => slugify(product.productName, {
+    lower: true,
+    replacement: '-',
+}));
 
 // Handle requests
 const server = http.createServer((req, res) => {
